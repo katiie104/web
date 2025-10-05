@@ -1,0 +1,82 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(120deg, #f8ffae 0%, #43c6ac 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+ 
+.container {
+    width: 600px;
+    padding: 20px 40px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    width: 150px;
+    margin-right: 10px;
+    text-align: right;
+    font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="date"],
+.form-group input[type="tel"],
+.form-group input[type="password"] {
+    flex-grow: 1;
+    padding: 5px;
+    border: 1px solid #00c0c0; /* Màu viền xanh lam */
+    background-color: #e0ffff; /* Màu nền xanh lam nhạt */
+}
+
+.form-group input[type="radio"],
+.form-group input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.gender-group label, .course-group label {
+    font-weight: normal;
+    text-align: left;
+    width: auto;
+    margin-right: 20px;
+}
+
+.textarea-group {
+    align-items: flex-start;
+}
+
+.textarea-group textarea {
+    flex-grow: 1;
+    border: 1px solid #00c0c0; /* Màu viền xanh lam */
+    background-color: #e0ffff; /* Màu nền xanh lam nhạt */
+    resize: none;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.button-group button {
+    padding: 8px 20px;
+    margin: 0 5px;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+
+.button-group button:hover {
+    background-color: #e0e0e0;
+}

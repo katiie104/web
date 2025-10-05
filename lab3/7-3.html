@@ -1,0 +1,70 @@
+<html>
+<head>  
+    <title>Nhập thông tin lớp </title>
+    <link rel="stylesheet" type="text/css" href="/lab3/css/7-3.css">
+    <script>
+        function checkInfo(event) {
+            event.preventDefault(); // Ngăn reload form
+            var id = document.getElementById("malop").value;
+            var tenlop = document.getElementById("tenlop").value;
+            var khoa = document.getElementById("khoahoc").value;
+            var gvcn = document.getElementById("gvcn").value;
+            khoa = Number(khoa);
+
+            let msg = "";
+            if (id.length > 6) {
+                msg = "Mã lớp không hợp lệ";
+            }
+            else if (Number.isInteger(khoa) === false) {
+                msg = "Khóa học không hợp lệ";
+            }
+            else if (tenlop.length > 50) {
+                msg = "Tên lớp không hợp lệ";
+            }
+            else if (gvcn.length > 50) {
+                msg = "Tên gvcn không hợp lệ";
+            }
+
+            document.getElementById("alert").innerText = msg;
+
+            if (msg === "") {
+                let output = `
+                    <h3>📌 Thông tin vừa nhập:</h3>
+                    <p><b>Mã lớp:</b> ${id}</p>
+                    <p><b>Tên lớp:</b> ${tenlop}</p>
+                    <p><b>Khóa học:</b> ${khoa}</p>
+                    <p><b>GVCN:</b> ${gvcn}</p>
+                `;
+                document.getElementById("result").innerHTML = output;
+            }
+        }
+    </script>
+</head>
+ 
+<body>
+    <div class="login-form">
+        <h1>Nhập thông tin</h1>
+        <form onsubmit="checkInfo(event)">
+            <div class="login-box">
+                <input type="text" id="malop" name="malop" placeholder="Mã lớp" />
+            </div>
+            <div class="login-box">
+                <input type="text" id="tenlop" name="tenlop" placeholder="Tên lớp" />
+            </div>
+            <div class="login-box">
+                <input type="text" id="khoahoc" name="khoahoc" placeholder="Khóa học" />
+            </div>
+            <div class="login-box">
+                <input type="text" id="gvcn" name="gvcn" placeholder="Giáo viên chủ nhiệm" />
+            </div>
+            <div class="add">
+                <button type="submit">Xác nhận</button>
+            </div>
+            <div id="alert" style="color:red;"></div>
+        </form>
+    </div>
+
+    <!-- Kết quả hiển thị -->
+    <div id="result" style="margin-top:20px; padding:10px; border:1px solid #ccc;"></div>
+</body>
+</html>

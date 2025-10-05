@@ -1,0 +1,64 @@
+/* Style cho form lựa chọn sinh động hơn */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(120deg, #f8ffae 0%, #43c6ac 100%);
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    color: #2d6a4f;
+    margin-top: 40px;
+    font-size: 2.2em;
+    letter-spacing: 2px;
+}
+
+form, div {
+    max-width: 400px;
+    margin: 20px auto;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 16px rgba(67, 198, 172, 0.15);
+    padding: 30px 25px;
+}
+
+label {
+    font-size: 1.1em;
+    color: #333;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+input[type="radio"] {
+    accent-color: #43c6ac;
+    margin-right: 6px;
+    transform: scale(1.2);
+}
+
+input[type="button"] {
+    display: block;
+    width: 100%;
+    padding: 12px 0;
+    background: linear-gradient(90deg, #43c6ac 60%, #191654 100%);
+    color: #fff;
+    font-size: 1.1em;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-top: 18px;
+}
+
+input[type="button"]:hover {
+    background: linear-gradient(90deg, #191654 60%, #43c6ac 100%);
+}
+
+p {
+    font-weight: bold;
+    color: #2d6a4f;
+    margin-bottom: 10px;
+    margin-top: 30px;
+    text-align: center;
+
+}

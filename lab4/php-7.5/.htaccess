@@ -1,0 +1,12 @@
+# Bảo mật cơ bản
+Options -Indexes
+
+# Chặn truy cập trực tiếp đến file config
+<Files "*.config">
+    Deny from all
+</Files>
+
+# Bảo vệ file nhạy cảm
+<FilesMatch "^(config|database|\.env)\.php$">
+    Deny from all
+</FilesMatch>

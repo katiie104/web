@@ -1,0 +1,315 @@
+<html>
+<head>
+    <link rel="stylesheet" href="/lab3/css/7-2.css"></link>
+    <title>Form lựa chọn </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        
+        .form-section {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .question-container {
+            margin-top: 30px;
+            display: none;
+        }
+        
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+        
+        .question-number {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        input[type="button"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        input[type="button"]:hover {
+            background-color: #45a049;
+        }
+        
+        .back-button {
+            background-color: #008CBA;
+            margin-left: 10px;
+        }
+    </style>
+    <script type="text/javascript">
+        // Dữ liệu câu hỏi theo môn
+        const questionsData = {
+            "HTML": [
+                {
+                    question: "HTML là viết tắt của gì?",
+                    options: [
+                        "HyperText Markup Language",
+                        "HighText Machine Language",
+                        "HyperText Machine Language",
+                        "HighText Markup Language"
+                    ]
+                },
+                {
+                    question: "Thẻ nào dùng để tạo một liên kết trong HTML?",
+                    options: [
+                        "<a>",
+                        "<link>",
+                        "<href>",
+                        "<url>"
+                    ]
+                },
+                {
+                    question: "Thẻ nào dùng để chèn hình ảnh trong HTML?",
+                    options: [
+                        "<img>",
+                        "<image>",
+                        "<pic>",
+                        "<photo>"
+                    ]
+                },
+                {
+                    question: "Thuộc tính nào xác định URL đích của một liên kết?",
+                    options: [
+                        "href",
+                        "src",
+                        "link",
+                        "url"
+                    ]
+                },
+                {
+                    question: "Thẻ nào dùng để tạo một danh sách có thứ tự?",
+                    options: [
+                        "<ol>",
+                        "<ul>",
+                        "<list>",
+                        "<dl>"
+                    ]
+                }
+            ],
+            "CSS": [
+                {
+                    question: "CSS là viết tắt của gì?",
+                    options: [
+                        "Cascading Style Sheets",
+                        "Computer Style Sheets",
+                        "Creative Style System",
+                        "Colorful Style Sheets"
+                    ]
+                },
+                {
+                    question: "Thuộc tính nào dùng để thay đổi màu chữ?",
+                    options: [
+                        "color",
+                        "text-color",
+                        "font-color",
+                        "fgcolor"
+                    ]
+                },
+                {
+                    question: "Làm thế nào để chọn tất cả các phần tử <p>?",
+                    options: [
+                        "p",
+                        ".p",
+                        "#p",
+                        "all.p"
+                    ]
+                },
+                {
+                    question: "Thuộc tính nào dùng để thay đổi màu nền?",
+                    options: [
+                        "background-color",
+                        "bgcolor",
+                        "color-background",
+                        "background"
+                    ]
+                },
+                {
+                    question: "Làm thế nào để thêm bình luận trong CSS?",
+                    options: [
+                        "/* đây là bình luận */",
+                        "// đây là bình luận //",
+                        "<!-- đây là bình luận -->",
+                        "' đây là bình luận"
+                    ]
+                }
+            ],
+            "JavaScript": [
+                {
+                    question: "JavaScript là ngôn ngữ gì?",
+                    options: [
+                        "Ngôn ngữ lập trình",
+                        "Ngôn ngữ đánh dấu",
+                        "Ngôn ngữ kiểu dáng",
+                        "Ngôn ngữ truy vấn"
+                    ]
+                },
+                {
+                    question: "Biến nào được khai báo với phạm vi toàn cục?",
+                    options: [
+                        "var",
+                        "let",
+                        "const",
+                        "global"
+                    ]
+                },
+                {
+                    question: "Phương thức nào dùng để in ra console?",
+                    options: [
+                        "console.log()",
+                        "print()",
+                        "log.console()",
+                        "console.print()"
+                    ]
+                },
+                {
+                    question: "Hàm nào dùng để chuyển đổi chuỗi thành số nguyên?",
+                    options: [
+                        "parseInt()",
+                        "parseFloat()",
+                        "toString()",
+                        "toNumber()"
+                    ]
+                },
+                {
+                    question: "Toán tử nào dùng để so sánh cả giá trị và kiểu dữ liệu?",
+                    options: [
+                        "===",
+                        "==",
+                        "=",
+                        "!=="
+                    ]
+                }
+            ]
+        };
+        
+        function handleSubmit() {
+            // Lấy môn đã chọn
+            const selectedSubject = document.querySelector('input[name="fav_language"]:checked');
+            
+            // Kiểm tra xem đã chọn môn chưa
+            if (!selectedSubject) {
+                alert("Vui lòng chọn môn thi!");
+                return;
+            }
+            
+            const subject = selectedSubject.value;
+            
+            // Lấy dữ liệu câu hỏi cho môn đã chọn
+            const questions = questionsData[subject];
+            
+            // Hiển thị 5 câu hỏi đầu tiên
+            displayQuestions(questions.slice(0, 5));
+        }
+        
+        function displayQuestions(questions) {
+            const container = document.getElementById("questions-container");
+            container.innerHTML = "";
+            
+            // Tạo HTML cho từng câu hỏi
+            questions.forEach((q, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.className = "question";
+                
+                const questionNumber = document.createElement("div");
+                questionNumber.className = "question-number";
+                questionNumber.textContent = `Câu ${index + 1}: ${q.question}`;
+                
+                const optionsDiv = document.createElement("div");
+                
+                q.options.forEach((option, optIndex) => {
+                    const optionDiv = document.createElement("div");
+                    
+                    const radio = document.createElement("input");
+                    radio.type = "radio";
+                    radio.id = `q${index}-opt${optIndex}`;
+                    radio.name = `question${index}`;
+                    radio.value = option;
+                    
+                    const label = document.createElement("label");
+                    label.htmlFor = `q${index}-opt${optIndex}`;
+                    label.textContent = option;
+                    
+                    optionDiv.appendChild(radio);
+                    optionDiv.appendChild(label);
+                    optionsDiv.appendChild(optionDiv);
+                });
+                
+                questionDiv.appendChild(questionNumber);
+                questionDiv.appendChild(optionsDiv);
+                container.appendChild(questionDiv);
+            });
+            
+            // Hiển thị container câu hỏi
+            container.style.display = "block";
+            
+            // Thêm nút quay lại
+            const backButton = document.createElement("input");
+            backButton.type = "button";
+            backButton.value = "Quay lại";
+            backButton.className = "back-button";
+            backButton.onclick = function() {
+                container.style.display = "none";
+            };
+            
+            container.appendChild(backButton);
+        }
+    </script>
+</head>
+<body>
+    <h1>Kiểm tra</h1>
+    
+    <div class="form-section">
+        <p>Chọn môn thi:</p>
+        <div>
+            <input type="radio" id="html" name="fav_language" value="HTML">
+            <label for="html">HTML</label><br>
+            <input type="radio" id="css" name="fav_language" value="CSS">
+            <label for="css">CSS</label><br>
+            <input type="radio" id="js" name="fav_language" value="JavaScript">
+            <label for="js">JavaScript</label>
+        </div>
+    </div>
+    
+    <div class="form-section">
+        <p>Chọn số câu:</p>
+        <div>
+            <input type="radio" id="10cau" name="number_of_questions" value="10">
+            <label for="10cau">5 câu</label><br>
+            <input type="radio" id="20cau" name="number_of_questions" value="20">
+            <label for="20cau">10 câu</label><br>
+            <input type="radio" id="30cau" name="number_of_questions" value="30">
+            <label for="30cau">15 câu</label><br>
+        </div>
+    </div>
+    
+    <div> 
+        <input type="button" value="Submit" onclick="handleSubmit()">
+    </div>
+    
+    <div id="questions-container" class="question-container">
+        <!-- Các câu hỏi sẽ được hiển thị ở đây -->
+    </div>
+</body>
+</html>

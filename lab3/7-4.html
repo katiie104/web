@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form Hồ Sơ</title>
+    <link rel="stylesheet" href="/lab3/css/7-4.css" />
+    <script>
+      function dateIsValid(date) {
+        var isValidDate = Date.parse(date);
+        if (isNaN(isValidDate)) {
+          return false;
+        } else {
+          return true;
+        }
+      }
+      function checkInfo() {
+        var MaHS = document.getElementById("MaHS").value;
+        var HoTen = document.getElementById("HoTen").value;
+        var birth = document.getElementById("birth").value;
+        var Addr = document.getElementById("addr").value;
+        var Lop = document.getElementById("Lop").value;
+        var DiemToan = document.getElementById("DiemToan").value;
+        var DiemLy = document.getElementById("DiemLy").value;
+        var DiemHoa = document.getElementById("DiemHoa").value;
+        console.log(dateIsValid(new Date("2022-03-36")));
+        // Birth = new Date(birth);
+        if (MaHS.length > 8) {
+          // alert("Mã lớp không hợp lệ");
+          msg = "Mã SV không hợp lệ";
+        } else if (HoTen.length > 50) {
+          // alert("Họ tên không hợp lệ");
+          msg = "Họ tên không hợp lệ";
+        } else if (!dateIsValid(birth)) {
+          msg = "Ngày sinh không hợp lệ";
+        } else if (addr.length > 150) {
+          // alert("Tên lớp không hợp lệ");
+          msg = "Địa chỉ không hợp lệ";
+        } else if (Lop.length > 6) {
+          // alert("Tên gvcn không hợp lệ");
+          msg = "Lớp không hợp lệ";
+        } else if (isNaN(DiemToan)) {
+          // alert("Tên gvcn không hợp lệ");
+          msg = "Điểm toán không hợp lệ";
+        } else if (isNaN(DiemLy)) {
+          // alert("Tên gvcn không hợp lệ");
+          msg = "Điểm lý không hợp lệ";
+        } else if (isNaN(DiemHoa)) {
+          // alert("Tên gvcn không hợp lệ");
+          msg = "Điểm hóa không hợp lệ";
+        } else {
+          msg = "";
+        }
+        document.getElementById("alert").innerText = msg;
+      }
+    </script>
+  </head>
+  <body>
+    <div class="login-form">
+      <h1>Hồ sơ</h1>
+      <form>
+        <div class="login_box">
+          <input
+            type="text"
+            id="MaHS"
+            name="MaHS"
+            placeholder="Mã học sinh"
+            onkeyup="checkInfo()"
+            required
+          />
+        </div>
+        <div class="login_box">
+          <input
+            type="text"
+            id="HoTen"
+            name="HoTen"
+            placeholder="Họ và tên"
+            onkeyup="checkInfo()"
+            required
+          />
+        </div>
+        <div class="login_box">
+          <input
+            type="text"
+            id="birth"
+            name="birth"
+            placeholder="mm-dd-yy"
+            onkeyup="checkInfo()"
+            required
+          />
+        </div>
+        <div class="login_box">
+          <input
+            type="text"
+            id="addr"
+            name="addr"
+            placeholder="Địa chỉ"
+            onkeyup="checkInfo()"
+            required
+          />
+        </div>
+        <div class="login_box">
+          <input
+            type="text"
+            id="Lop"
+            name="Lop"
+            placeholder="Lớp"
+            onkeyup="checkInfo()"
+            required
+          />
+        </div>
+        <div class="login_box">
+          <input
+            type="text"
+            id="DiemToan"
+            name="DiemToan"
+            placeholder="Điểm toán"
+            onkeyup="checkInfo()"
+            required
+          />
+        </div>
+        <div class="login_box">
+          <input
+            type="text"
+            id="DiemLy"
+            name="DiemLy"
+            placeholder="Điểm lý"
+            onkeyup="checkInfo()"
+            required
+          />
+        </div>
+        <div class="login_box">
+          <input
+            type="text"
+            id="DiemHoa"
+            name="DiemHoa"
+            placeholder="Điểm hóa"
+            onkeyup="checkInfo()"
+            required
+          />
+        </div>
+        <div class="add">
+          <button name="submit" type="submit" onclick="checkInfo()">Add</button>
+        </div>
+        <div id="alert"></div>
+      </form>
+    </div>
+    <div>
+      <table></table>
+    </div>
+
+    <script>
+      function dateIsValid(date) {
+        var isValidDate = Date.parse(date);
+        if (isNaN(isValidDate)) {
+          return false;
+        } else {
+          return true;
+        }
+      } 
+      function checkInfo() {
+        var MaHS = document.getElementById("MaHS").value;
+        var HoTen = document.getElementById("HoTen").value;
+        var birth = document.getElementById("birth").value;
+        var Addr = document.getElementById("addr").value;
+        var Lop = document.getElementById("Lop").value;
+        var DiemToan = document.getElementById("DiemToan").value;
+        var DiemLy = document.getElementById("DiemLy").value;
+        var DiemHoa = document.getElementById("DiemHoa").value;
+        console.log(dateIsValid(new Date("2022-03-36")));
+        // Birth = new Date(birth);
+        if (MaHS.length > 8) {
+          // alert("Mã lớp không hợp lệ");
+          msg = "Mã SV không hợp lệ";
+        } else if (HoTen.length > 50) {
+          // alert("Họ tên không hợp lệ");
+          msg = "Họ tên không hợp lệ";
+        } else if (!dateIsValid(birth)) {
+          msg = "Ngày sinh không hợp lệ";
+        } else if (addr.length > 150) {
+          // alert("Tên lớp không hợp lệ");
+          msg = "Địa chỉ không hợp lệ";
+        } else if (Lop.length > 6) {
+          // alert("Tên gvcn không hợp lệ");
+          msg = "Lớp không hợp lệ";
+        } else if (isNaN(DiemToan)) {
+          // alert("Tên gvcn không hợp lệ");
+          msg = "Điểm toán không hợp lệ";
+        } else if (isNaN(DiemLy)) {
+          // alert("Tên gvcn không hợp lệ");
+          msg = "Điểm lý không hợp lệ";
+        } else if (isNaN(DiemHoa)) {
+          // alert("Tên gvcn không hợp lệ");
+          msg = "Điểm hóa không hợp lệ";
+        } else {
+          msg = "";
+        }
+        document.getElementById("alert").innerText = msg;
+      }
+    </script>
+
+  </body>
+</html>

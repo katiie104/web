@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh sách sinh viên</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+    th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
+    th { background: #f2f2f2; }
+    tr.selected { background-color: #e6f7ff; }
+    .form-group { margin: 5px 0; }
+    .footer { margin-top: 20px; text-align: center; font-size: 14px; }
+    button { margin: 5px; padding: 6px 12px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>7.6. Danh sách sinh viên</h1>
+  <p>Thông tin của sinh viên</p>
+
+  <!-- Form nhập dữ liệu -->
+  <div>
+    <div class="form-group">
+      <label>Họ tên: </label>
+      <input type="text" id="name">
+    </div>
+    <div class="form-group">
+      <label>Ngày sinh: </label>
+      <input type="date" id="dob">
+    </div>
+    <div class="form-group">
+      <label>Giới tính: </label>
+      <select id="gender">
+        <option value="Nam">Nam</option>
+        <option value="Nữ">Nữ</option>
+      </select>
+    </div>
+    <button id="addBtn">Thêm</button>
+    <button id="editBtn">Sửa</button>
+    <button id="deleteBtn">Xóa</button>
+  </div>
+
+  <!-- Bảng sinh viên -->
+  <table id="studentTable">
+    <thead>
+      <tr>
+        <th><input type="checkbox" id="selectAll"></th>
+        <th>Họ tên</th>
+        <th>Ngày sinh</th>
+        <th>Giới tính</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input type="checkbox" class="student-checkbox"></td>
+        <td>Hoàng Thị Thảo</td>
+        <td>2000-05-15</td>
+        <td>Nữ</td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="student-checkbox"></td>
+        <td>Ngô Mạnh Quân</td>
+        <td>1999-11-22</td>
+        <td>Nam</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="footer">
+    Thông tin bản quyền
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const selectAllCheckbox = document.getElementById('selectAll');
+      const tbody = document.querySelector('#studentTable tbody');
+
+      // Chọn tất cả
+      selectAllCheckbox.addEventListener('change', function () {
+        document.querySelectorAll('.student-checkbox').forEach(cb => {
+          cb.checked = selectAllCheckbox.checked;
+        });
+      });
+
+      // Thêm sinh viên
+      document.getElementById('addBtn').addEventListener('click', function () {
+        const name = document.getElementById('name').value.trim();
+        const dob = document.getElementById('dob').value;
+        const gender = document.getElementById('gender').value;
+
+        if (!name || !dob) {
+          alert("Vui lòng nhập đầy đủ thông tin!");
+          return;
+        }
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td><input type="checkbox" class="student-checkbox"></td>
+          <td>${name}</td>
+          <td>${dob}</td>
+          <td>${gender}</td>
+        `;
+        tbody.appendChild(row);
+        resetForm();
+      });
+
+      // Sửa sinh viên (sửa dòng đầu tiên được chọn)
+      document.getElementById('editBtn').addEventListener('click', function () {
+        const selected = document.querySelectorAll('.student-checkbox:checked');
+        if (selected.length !== 1) {
+          alert("Chỉ được chọn 1 sinh viên để sửa!");
+          return;
+        }
+        const row = selected[0].closest('tr');
+        const name = document.getElementById('name').value.trim();
+        const dob = document.getElementById('dob').value;
+        const gender = document.getElementById('gender').value;
+
+        if (!name || !dob) {
+          alert("Vui lòng nhập đầy đủ thông tin!");
+          return;
+        }
+
+        row.cells[1].textContent = name;
+        row.cells[2].textContent = dob;
+        row.cells[3].textContent = gender;
+        resetForm();
+      });
+
+      // Xóa sinh viên
+      document.getElementById('deleteBtn').addEventListener('click', function () {
+        const selected = document.querySelectorAll('.student-checkbox:checked');
+        if (selected.length === 0) {
+          alert("Chọn ít nhất 1 sinh viên để xóa!");
+          return;
+        }
+        selected.forEach(cb => cb.closest('tr').remove());
+      });
+
+      // Reset form
+      function resetForm() {
+        document.getElementById('name').value = '';
+        document.getElementById('dob').value = '';
+        document.getElementById('gender').value = 'Nam';
+      }
+    });
+  </script>
+</body>
+</html>

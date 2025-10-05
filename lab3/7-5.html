@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="vi">
+ 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký</title>
+    <link rel="stylesheet" href="/lab3/css/7-5.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <form action="#" method="post">
+            <div class="form-group">
+                <label for="fullName">Họ tên:</label>
+                <input type="text" id="fullName" name="fullName">
+            </div>
+
+            <div class="form-group">
+                <label for="address">Địa chỉ:</label>
+                <input type="text" id="address" name="address">
+            </div>
+
+            <div class="form-group gender-group">
+                <label>Giới tính:</label>
+                <input type="radio" id="male" name="gender" value="male">
+                <label for="male">Nam</label>
+                <input type="radio" id="female" name="gender" value="female">
+                <label for="female">Nữ</label>
+            </div>
+
+            <div class="form-group">
+                <label for="date">Ngày sinh:</label>
+                <input type="date" id="date" name="date">
+            </div>
+
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email">
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Điện thoại:</label>
+                <input type="tel" id="phone" name="phone">
+            </div>
+
+            <div class="form-group course-group">
+                <label>Khóa đăng ký:</label>
+                <input type="checkbox" id="english" name="courses[]" value="english">
+                <label for="english">Tiếng Anh</label>
+                <input type="checkbox" id="admin" name="courses[]" value="admin">
+                <label for="admin">Quản trị</label>
+                <input type="checkbox" id="it" name="courses[]" value="it">
+                <label for="it">CNTT</label>
+            </div>
+
+            <div class="form-group">
+                <label for="username">Tên sử dụng:</label>
+                <input type="text" id="username" name="username">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Mật khẩu:</label>
+                <input type="password" id="password" name="password">
+            </div>
+
+            <div class="form-group">
+                <label for="rePassword">Gõ lại mật khẩu:</label>
+                <input type="password" id="rePassword" name="rePassword">
+            </div>
+
+            <div class="form-group textarea-group">
+                <label for="notes">Ghi chú:</label>
+                <textarea id="notes" name="notes" rows="4"></textarea>
+            </div>
+
+            <div class="button-group">
+                <button type="submit">Chấp nhận</button>
+                <button type="reset">Bỏ qua</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Chuyển sang ô tiếp theo khi nhấn Enter
+        const inputs = Array.from(document.querySelectorAll('input[type="text"], input[type="email"], input[type="password"], input[type="date"]'));
+        inputs.forEach((input, idx) => {
+            input.addEventListener('keydown', function(e) {
+                if (e.key === "Enter") {
+                    e.preventDefault();
+                    let next = inputs[idx + 1];
+                    if (next) next.focus();
+                }
+            });
+        });
+
+        // Chuẩn hóa họ tên khi blur
+        const fullName = document.getElementById('fullName');
+        if (fullName) {
+            fullName.addEventListener('blur', function() {
+                let val = fullName.value.trim().replace(/\s+/g, ' ');
+                val = val.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ');
+                fullName.value = val;
+            });
+        }
+
+        // Kiểm tra định dạng email khi blur
+        const email = document.getElementById('email');
+        if (email) {
+            email.addEventListener('blur', function() {
+                let val = email.value.trim();
+                let regex = /^([a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*)@([a-zA-Z0-9]+(\.[a-zA-Z0-9]+)*)$/;
+                let errorSpan = document.getElementById('emailError');
+                if (!errorSpan) {
+                    errorSpan = document.createElement('span');
+                    errorSpan.id = 'emailError';
+                    errorSpan.style.color = 'red';
+                    email.parentNode.appendChild(errorSpan);
+                }
+                if (val && !regex.test(val)) {
+                    errorSpan.textContent = 'Email không đúng định dạng!';
+                } else {
+                    errorSpan.textContent = '';
+                }
+            });
+        }
+
+        // Tự động thêm dấu / cho ngày sinh
+        const dob = document.getElementById('dob');
+        if (dob) {
+            dob.addEventListener('input', function(e) {
+                let val = dob.value.replace(/\D/g, '');
+                if (val.length > 2 && val.length <= 4) val = val.slice(0,2) + '/' + val.slice(2);
+                else if (val.length > 4) val = val.slice(0,2) + '/' + val.slice(2,4) + '/' + val.slice(4,8);
+                dob.value = val;
+            });
+        }
+
+        // Kiểm tra mật khẩu gõ lại
+        const password = document.getElementById('password');
+        const confirmPassword = document.getElementById('confirmPassword');
+        if (confirmPassword) {
+            confirmPassword.addEventListener('blur', function() {
+                let errorSpan = document.getElementById('pwError');
+                if (!errorSpan) {
+                    errorSpan = document.createElement('span');
+                    errorSpan.id = 'pwError';
+                    errorSpan.style.color = 'red';
+                    confirmPassword.parentNode.appendChild(errorSpan);
+                }
+                if (password && confirmPassword.value !== password.value) {
+                    errorSpan.textContent = 'Mật khẩu gõ lại không đúng';
+                } else {
+                    errorSpan.textContent = '';
+                }
+            });
+        }
+
+        // Kiểm tra thông tin khi bấm Chấp nhận
+        const submitBtn = document.getElementById('submitBtn');
+        if (submitBtn) {
+            submitBtn.addEventListener('click', function(e) {
+                let requiredFields = [
+                    {id: 'fullName', msg: 'Vui lòng nhập họ tên'},
+                    {id: 'email', msg: 'Vui lòng nhập email'},
+                    {id: 'dob', msg: 'Vui lòng nhập ngày sinh'},
+                    {id: 'password', msg: 'Vui lòng nhập mật khẩu'},
+                    {id: 'confirmPassword', msg: 'Vui lòng nhập lại mật khẩu'}
+                ];
+                let valid = true;
+                requiredFields.forEach(field => {
+                    let input = document.getElementById(field.id);
+                    let errorSpan = document.getElementById(field.id + 'Error');
+                    if (!errorSpan) {
+                        errorSpan = document.createElement('span');
+                        errorSpan.id = field.id + 'Error';
+                        errorSpan.style.color = 'red';
+                        input.parentNode.appendChild(errorSpan);
+                    }
+                    if (!input.value.trim()) {
+                        errorSpan.textContent = field.msg;
+                        valid = false;
+                    } else {
+                        errorSpan.textContent = '';
+                    }
+                });
+                if (!valid) e.preventDefault();
+            });
+        }
+    });
+    </script>
+</body>
+</html>

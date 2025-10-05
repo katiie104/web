@@ -1,0 +1,55 @@
+/* style.css - CSS bổ sung cho bài 7.3 */
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        margin: 10px;
+        padding: 10px;
+    }
+    
+    .menu a {
+        display: block;
+        margin: 5px 0;
+    }
+    
+    table {
+        font-size: 0.9em;
+    }
+}
+
+/* Animation cho button */
+.btn {
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+/* Hiệu ứng cho table */
+table tr {
+    transition: background 0.3s ease;
+}
+
+table tr:hover {
+    background: #f8f9fa;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}

@@ -1,0 +1,14 @@
+# Ngăn chặn truy cập trực tiếp đến file trong thư mục uploads
+Order Deny,Allow
+Deny from all
+
+# Cho phép truy cập từ các file PHP trong hệ thống
+<FilesMatch "\.(jpg|jpeg|png|gif|pdf|txt)$">
+    Allow from 127.0.0.1
+    Allow from localhost
+</FilesMatch>
+
+# Chặn thực thi PHP trong thư mục uploads
+<FilesMatch "\.php$">
+    Deny from all
+</FilesMatch>

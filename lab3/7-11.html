@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stick Figure Jump & Stop</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 20px;
+      background-color: #f0f0f0;
+    }
+    canvas {
+      border: 2px solid #000;
+      background-color: white;
+      margin-bottom: 20px;
+    }
+    .controls {
+      display: flex;
+      gap: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #fff;
+    }
+    button:hover {
+      background-color: #e0e0e0;
+    }
+    #status {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Stick Figure Animation</h1>
+  <canvas id="canvas" width="200" height="300"></canvas>
+  <div class="controls">
+    <button id="jumpBtn">Jump</button>
+    <button id="stopBtn">Stop</button>
+    <button id="downloadBtn">Download</button>
+  </div>
+  <div id="status">Đứng yên</div>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    const status = document.getElementById('status');
+    const jumpBtn = document.getElementById('jumpBtn');
+    const stopBtn = document.getElementById('stopBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    let isJumping = false;
+    let animationId = null;
+    let startTime = null;
+
+    // Vẽ stick figure với offset Y (để nhảy lên xuống)
+    function drawFigure(yOffset = 0) {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      // Tính vị trí cơ bản với offset
+      const headY = 50 + yOffset;
+      const bodyYStart = 70 + yOffset;
+      const bodyYEnd = 150 + yOffset;
+      const armY = 90 + yOffset;
+      const legYStart = 150 + yOffset;
+      const legYEnd = 220 + yOffset;
+      
+      // Đầu
+      ctx.beginPath();
+      ctx.arc(100, headY, 20, 0, Math.PI * 2);
+      ctx.stroke();
+      
+      // Thân
+      ctx.beginPath();
+      ctx.moveTo(100, bodyYStart);
+      ctx.lineTo(100, bodyYEnd);
+      ctx.stroke();
+      
+      // Tay trái (giơ lên khi nhảy cao)
+      const armAngle = yOffset > 0 ? 30 : 0; // Giơ tay khi lên
+      ctx.beginPath();
+      ctx.moveTo(100, armY);
+      ctx.lineTo(70 - armAngle, armY + 30);
+      ctx.stroke();
+      
+      // Tay phải
+      ctx.beginPath();
+      ctx.moveTo(100, armY);
+      ctx.lineTo(130 + armAngle, armY + 30);
+      ctx.stroke();
+      
+      // Chân trái (dang rộng khi nhảy)
+      const legSpread = Math.abs(yOffset) * 0.5; // Dang chân theo độ cao
+      ctx.beginPath();
+      ctx.moveTo(100, legYStart);
+      ctx.lineTo(80 - legSpread, legYEnd);
+      ctx.stroke();
+      
+      // Chân phải
+      ctx.beginPath();
+      ctx.moveTo(100, legYStart);
+      ctx.lineTo(120 + legSpread, legYEnd);
+      ctx.stroke();
+    }
+
+    // Animation loop cho jump liên tục (sin wave cho nhảy lên xuống)
+    function animateJump(currentTime) {
+      if (!isJumping) return;
+      
+      if (!startTime) startTime = currentTime;
+      const elapsed = currentTime - startTime;
+      const progress = (elapsed % 2000) / 2000; // Chu kỳ 2 giây
+      const yOffset = Math.sin(progress * Math.PI * 2) * 30; // Nhảy cao 30px
+      
+      drawFigure(yOffset);
+      status.textContent = 'Đang nhảy liên tục!';
+      
+      animationId = requestAnimationFrame(animateJump);
+    }
+
+    // Khởi tạo: vẽ standing
+    drawFigure(0);
+    status.textContent = 'Đứng yên';
+
+    // Event Jump: Bắt đầu loop animation
+    jumpBtn.addEventListener('click', () => {
+      if (isJumping) return; // Tránh lặp
+      isJumping = true;
+      startTime = null;
+      status.textContent = 'Bắt đầu nhảy liên tục...';
+      if (animationId) cancelAnimationFrame(animationId);
+      animationId = requestAnimationFrame(animateJump);
+    });
+
+    // Event Stop: Dừng animation và về trạng thái đứng
+    stopBtn.addEventListener('click', () => {
+      isJumping = false;
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+        animationId = null;
+      }
+      drawFigure(0); // Về trạng thái đứng
+      status.textContent = 'Dừng nhảy - Đứng yên';
+    });
+
+    // Event Download: Tải canvas dưới dạng PNG
+    downloadBtn.addEventListener('click', () => {
+      const link = document.createElement('a');
+      link.download = 'stick-figure.png';
+      link.href = canvas.toDataURL();
+      link.click();
+    });
+  </script>
+</body>
+</html>

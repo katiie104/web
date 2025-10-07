@@ -33,7 +33,7 @@ table tr {
 }
 
 table tr:hover {
-    background: #f8f9fa;
+    background: #46637f;
 }
 
 /* Custom scrollbar */
@@ -42,11 +42,11 @@ table tr:hover {
 }
 
 ::-webkit-scrollbar-track {
-    background: #f1f1f1;
+    background: #3b567b;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
+    background: #317670;
     border-radius: 4px;
 }
 

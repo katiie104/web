@@ -27,27 +27,20 @@
         console.log(dateIsValid(new Date("2022-03-36")));
         // Birth = new Date(birth);
         if (MaHS.length > 8) {
-          // alert("Mã lớp không hợp lệ");
           msg = "Mã SV không hợp lệ";
         } else if (HoTen.length > 50) {
-          // alert("Họ tên không hợp lệ");
           msg = "Họ tên không hợp lệ";
         } else if (!dateIsValid(birth)) {
           msg = "Ngày sinh không hợp lệ";
         } else if (addr.length > 150) {
-          // alert("Tên lớp không hợp lệ");
           msg = "Địa chỉ không hợp lệ";
         } else if (Lop.length > 6) {
-          // alert("Tên gvcn không hợp lệ");
           msg = "Lớp không hợp lệ";
         } else if (isNaN(DiemToan)) {
-          // alert("Tên gvcn không hợp lệ");
           msg = "Điểm toán không hợp lệ";
         } else if (isNaN(DiemLy)) {
-          // alert("Tên gvcn không hợp lệ");
           msg = "Điểm lý không hợp lệ";
         } else if (isNaN(DiemHoa)) {
-          // alert("Tên gvcn không hợp lệ");
           msg = "Điểm hóa không hợp lệ";
         } else {
           msg = "";
@@ -159,46 +152,6 @@
           return true;
         }
       } 
-      function checkInfo() {
-        var MaHS = document.getElementById("MaHS").value;
-        var HoTen = document.getElementById("HoTen").value;
-        var birth = document.getElementById("birth").value;
-        var Addr = document.getElementById("addr").value;
-        var Lop = document.getElementById("Lop").value;
-        var DiemToan = document.getElementById("DiemToan").value;
-        var DiemLy = document.getElementById("DiemLy").value;
-        var DiemHoa = document.getElementById("DiemHoa").value;
-        console.log(dateIsValid(new Date("2022-03-36")));
-        // Birth = new Date(birth);
-        if (MaHS.length > 8) {
-          // alert("Mã lớp không hợp lệ");
-          msg = "Mã SV không hợp lệ";
-        } else if (HoTen.length > 50) {
-          // alert("Họ tên không hợp lệ");
-          msg = "Họ tên không hợp lệ";
-        } else if (!dateIsValid(birth)) {
-          msg = "Ngày sinh không hợp lệ";
-        } else if (addr.length > 150) {
-          // alert("Tên lớp không hợp lệ");
-          msg = "Địa chỉ không hợp lệ";
-        } else if (Lop.length > 6) {
-          // alert("Tên gvcn không hợp lệ");
-          msg = "Lớp không hợp lệ";
-        } else if (isNaN(DiemToan)) {
-          // alert("Tên gvcn không hợp lệ");
-          msg = "Điểm toán không hợp lệ";
-        } else if (isNaN(DiemLy)) {
-          // alert("Tên gvcn không hợp lệ");
-          msg = "Điểm lý không hợp lệ";
-        } else if (isNaN(DiemHoa)) {
-          // alert("Tên gvcn không hợp lệ");
-          msg = "Điểm hóa không hợp lệ";
-        } else {
-          msg = "";
-        }
-        document.getElementById("alert").innerText = msg;
-      }
     </script>
-
   </body>
 </html>

@@ -4,9 +4,7 @@ session_start();
 // Xử lý form theme preference
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['set_theme'])) {
     $theme = $_POST['theme'];
-    
     setcookie("user_theme", $theme, time() + (30 * 24 * 60 * 60), "/");
-    
     header("Location: " . $_SERVER['PHP_SELF']);
     exit;
 }
@@ -22,12 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['set_language'])) {
 // Xử lý remember me
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['login'])) {
     $username = $_POST['username'] ?? '';
-    
     if (isset($_POST['remember_me'])) {
-        // Remember for 7 days
         setcookie("remembered_user", $username, time() + (7 * 24 * 60 * 60), "/");
     }
-    
     $_SESSION['username'] = $username;
 }
 

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cây Thư Mục</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f4;
+    }
+    .tree {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      max-width: 600px;
+    }
+    .tree ul {
+      list-style: none;
+      padding-left: 20px;
+      margin: 0;
+      position: relative;
+    }
+    .tree li {
+      margin: 5px 0;
+      position: relative;
+    }
+    .tree .folder {
+      cursor: pointer;
+      color: #007bff;
+      font-weight: bold;
+    }
+    .tree .folder:hover {
+      text-decoration: underline;
+    }
+    .tree .folder.selected {
+      color: #dc3545;
+      font-weight: bolder;
+    }
+    .tree .toggle {
+      margin-right: 5px;
+      cursor: pointer;
+      color: #666;
+      font-weight: bold;
+    }
+    .tree .toggle:hover {
+      color: #000;
+    }
+    .tree ul.collapsed > ul {
+      display: none;
+    }
+    .tree .line {
+      position: absolute;
+      left: -20px;
+      top: 50%;
+      width: 20px;
+      height: 1px;
+      background: #ccc;
+    }
+    .tree .vertical-line {
+      position: absolute;
+      left: -20px;
+      top: 0;
+      width: 1px;
+      height: 100%;
+      background: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>Cấu Trúc Thư Mục</h1>
+  <div class="tree">
+    <ul id="root">
+      <li>
+        <span class="toggle" onclick="toggleFolder(this)">-</span>
+        <span class="folder" onclick="selectFolder(this)">C:.</span>
+        <ul>
+          <li>
+            <span class="toggle" onclick="toggleFolder(this)">+</span>
+            <span class="folder" onclick="selectFolder(this)">.vscode</span>
+            <ul>
+              <!-- .vscode không có sub, nên ul rỗng -->
+            </ul>
+          </li>
+          <li>
+            <span class="toggle" onclick="toggleFolder(this)">+</span>
+            <span class="folder" onclick="selectFolder(this)">lab2</span>
+            <ul>
+              <li>
+                <span class="toggle" onclick="toggleFolder(this)">+</span>
+                <span class="folder" onclick="selectFolder(this)">css</span>
+                <ul></ul>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span class="toggle" onclick="toggleFolder(this)">+</span>
+            <span class="folder" onclick="selectFolder(this)">lab3</span>
+            <ul>
+              <li>
+                <span class="toggle" onclick="toggleFolder(this)">+</span>
+                <span class="folder" onclick="selectFolder(this)">css</span>
+                <ul></ul>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span class="toggle" onclick="toggleFolder(this)">-</span>
+            <span class="folder" onclick="selectFolder(this)">lab4</span>
+            <ul>
+              <li>
+                <span class="toggle" onclick="toggleFolder(this)">+</span>
+                <span class="folder" onclick="selectFolder(this)">css</span>
+                <ul></ul>
+              </li>
+              <li>
+                <span class="toggle" onclick="toggleFolder(this)">+</span>
+                <span class="folder" onclick="selectFolder(this)">images</span>
+                <ul></ul>
+              </li>
+              <li>
+                <span class="toggle" onclick="toggleFolder(this)">+</span>
+                <span class="folder" onclick="selectFolder(this)">php-7.1</span>
+                <ul>
+                  <li>
+                    <span class="toggle" onclick="toggleFolder(this)">+</span>
+                    <span class="folder" onclick="selectFolder(this)">images</span>
+                    <ul></ul>
+                  </li>
+                  <li>
+                    <span class="toggle" onclick="toggleFolder(this)">+</span>
+                    <span class="folder" onclick="selectFolder(this)">pages</span>
+                    <ul></ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <span class="toggle" onclick="toggleFolder(this)">+</span>
+                <span class="folder" onclick="selectFolder(this)">php-7.2</span>
+                <ul>
+                  <li>
+                    <span class="toggle" onclick="toggleFolder(this)">+</span>
+                    <span class="folder" onclick="selectFolder(this)">pages</span>
+                    <ul></ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <span class="toggle" onclick="toggleFolder(this)">+</span>
+                <span class="folder" onclick="selectFolder(this)">php-7.3</span>
+                <ul>
+                  <li>
+                    <span class="toggle" onclick="toggleFolder(this)">+</span>
+                    <span class="folder" onclick="selectFolder(this)">pages</span>
+                    <ul></ul>
+                  </li>
+                  <li>
+                    <span class="toggle" onclick="toggleFolder(this)">+</span>
+                    <span class="folder" onclick="selectFolder(this)">uploads</span>
+                    <ul></ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <span class="toggle" onclick="toggleFolder(this)">+</span>
+                <span class="folder" onclick="selectFolder(this)">php-7.4</span>
+                <ul>
+                  <li>
+                    <span class="toggle" onclick="toggleFolder(this)">+</span>
+                    <span class="folder" onclick="selectFolder(this)">pages</span>
+                    <ul></ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <span class="toggle" onclick="toggleFolder(this)">+</span>
+                <span class="folder" onclick="selectFolder(this)">php-7.5</span>
+                <ul>
+                  <li>
+                    <span class="toggle" onclick="toggleFolder(this)">+</span>
+                    <span class="folder" onclick="selectFolder(this)">admin</span>
+                    <ul>
+                      <li>
+                        <span class="toggle" onclick="toggleFolder(this)">+</span>
+                        <span class="folder" onclick="selectFolder(this)">pages</span>
+                        <ul></ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <span class="toggle" onclick="toggleFolder(this)">+</span>
+                    <span class="folder" onclick="selectFolder(this)">cookie</span>
+                    <ul></ul>
+                  </li>
+                  <li>
+                    <span class="toggle" onclick="toggleFolder(this)">+</span>
+                    <span class="folder" onclick="selectFolder(this)">pages</span>
+                    <ul></ul>
+                  </li>
+                  <li>
+                    <span class="toggle" onclick="toggleFolder(this)">+</span>
+                    <span class="folder" onclick="selectFolder(this)">uploads</span>
+                    <ul></ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <span class="toggle" onclick="toggleFolder(this)">+</span>
+                <span class="folder" onclick="selectFolder(this)">php-7.6</span>
+                <ul></ul>
+              </li>
+              <li>
+                <span class="toggle" onclick="toggleFolder(this)">+</span>
+                <span class="folder" onclick="selectFolder(this)">php-7.7</span>
+                <ul>
+                  <li>
+                    <span class="toggle" onclick="toggleFolder(this)">+</span>
+                    <span class="folder" onclick="selectFolder(this)">demos</span>
+                    <ul></ul>
+                  </li>
+                  <li>
+                    <span class="toggle" onclick="toggleFolder(this)">+</span>
+                    <span class="folder" onclick="selectFolder(this)">includes</span>
+                    <ul></ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <span class="toggle" onclick="toggleFolder(this)">+</span>
+                <span class="folder" onclick="selectFolder(this)">php-7.8</span>
+                <ul>
+                  <li>
+                    <span class="toggle" onclick="toggleFolder(this)">+</span>
+                    <span class="folder" onclick="selectFolder(this)">demo</span>
+                    <ul></ul>
+                  </li>
+                  <li>
+                    <span class="toggle" onclick="toggleFolder(this)">+</span>
+                    <span class="folder" onclick="selectFolder(this)">files</span>
+                    <ul>
+                      <li>
+                        <span class="toggle" onclick="toggleFolder(this)">+</span>
+                        <span class="folder" onclick="selectFolder(this)">data</span>
+                        <ul></ul>
+                      </li>
+                      <li>
+                        <span class="toggle" onclick="toggleFolder(this)">+</span>
+                        <span class="folder" onclick="selectFolder(this)">documents</span>
+                        <ul></ul>
+                      </li>
+                      <li>
+                        <span class="toggle" onclick="toggleFolder(this)">+</span>
+                        <span class="folder" onclick="selectFolder(this)">uploads</span>
+                        <ul></ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <span class="toggle" onclick="toggleFolder(this)">+</span>
+                    <span class="folder" onclick="selectFolder(this)">includes</span>
+                    <ul></ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <span class="toggle" onclick="toggleFolder(this)">+</span>
+                <span class="folder" onclick="selectFolder(this)">uploads</span>
+                <ul></ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    function toggleFolder(toggleSpan) {
+      const li = toggleSpan.parentElement;
+      const ul = li.querySelector('ul');
+      if (ul) {
+        if (ul.style.display === 'none') {
+          ul.style.display = 'block';
+          toggleSpan.textContent = '-';
+          li.classList.remove('collapsed');
+        } else {
+          ul.style.display = 'none';
+          toggleSpan.textContent = '+';
+          li.classList.add('collapsed');
+        }
+      }
+    }
+
+    function selectFolder(folderSpan) {
+      // Xóa selected từ tất cả folder
+      document.querySelectorAll('.folder').forEach(f => f.classList.remove('selected'));
+      // Thêm selected cho folder hiện tại
+      folderSpan.classList.add('selected');
+    }
+
+    // Khởi tạo: Đóng tất cả trừ root
+    document.addEventListener('DOMContentLoaded', function() {
+      const allLi = document.querySelectorAll('.tree li ul');
+      allLi.forEach(ul => {
+        if (ul.parentElement !== document.getElementById('root').firstElementChild) {
+          ul.style.display = 'none';
+          ul.previousElementSibling.firstElementChild.textContent = '+'; // Toggle span
+          ul.parentElement.classList.add('collapsed');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

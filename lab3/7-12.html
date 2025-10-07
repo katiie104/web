@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bảng Sản Phẩm Với Tìm Kiếm Và Sắp Xếp</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f4f4f4;
+    }
+    input[type="text"] {
+      width: 300px;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+    th.sortable {
+      cursor: pointer;
+      position: relative;
+    }
+    th.sortable::after {
+      content: "";
+      position: absolute;
+      right: 8px;
+    }
+    th.sortable.sorted-asc::after {
+      content: "▲";
+    }
+    th.sortable.sorted-desc::after {
+      content: "▼";
+    }
+    .highlight {
+      background-color: yellow;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Bảng Quản Lý Sản Phẩm</h1>
+  
+  <input type="text" id="searchInput" placeholder="Nhập các từ cần tìm">
+  
+  <table id="productTable">
+    <thead>
+      <tr>
+        <th>TT</th>
+        <th class="sortable" data-col="1">Mã sản phẩm</th>
+        <th class="sortable" data-col="2">Tên sản phẩm</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>SP001</td>
+        <td>iPhone 14 Pro Max</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>SP002</td>
+        <td>Samsung Galaxy S23</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>SP003</td>
+        <td>MacBook Air M2</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>SP004</td>
+        <td>Dell XPS 13</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>SP005</td>
+        <td>Google Pixel 8</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script>
+    const table = document.getElementById('productTable');
+    const headers = table.querySelectorAll('th.sortable');
+    let sortDirection = {};
+
+    headers.forEach(header => {
+      header.addEventListener('click', () => {
+        const colIndex = parseInt(header.dataset.col);
+        // Reset trạng thái các cột
+        headers.forEach(h => h.classList.remove('sorted-asc', 'sorted-desc'));
+        // Đảo chiều sắp xếp
+        sortDirection[colIndex] = !sortDirection[colIndex];
+        const rows = Array.from(table.tBodies[0].rows);
+        rows.sort((a, b) => {
+          const cellA = a.cells[colIndex].textContent.trim().toLowerCase();
+          const cellB = b.cells[colIndex].textContent.trim().toLowerCase();
+          return sortDirection[colIndex]
+            ? cellA.localeCompare(cellB)
+            : cellB.localeCompare(cellA);
+        });
+        // Gán lại dữ liệu sắp xếp
+        rows.forEach((row, i) => {
+          row.cells[0].textContent = i + 1; // cập nhật TT
+          table.tBodies[0].appendChild(row);
+        });
+        // Thêm class để hiện mũi tên
+        header.classList.add(sortDirection[colIndex] ? 'sorted-asc' : 'sorted-desc');
+      });
+    });
+
+    // Tìm kiếm
+    document.getElementById('searchInput').addEventListener('input', function () {
+      const keyword = this.value.trim().toLowerCase();
+      const rows = table.tBodies[0].rows;
+      for (let row of rows) {
+        let found = false;
+        for (let i = 1; i < row.cells.length; i++) {
+          const cell = row.cells[i];
+          const text = cell.textContent;
+          const lower = text.toLowerCase();
+          if (keyword && lower.includes(keyword)) {
+            found = true;
+            const regex = new RegExp(`(${keyword})`, 'gi');
+            cell.innerHTML = text.replace(regex, '<span class="highlight">$1</span>');
+          } else {
+            cell.innerHTML = text;
+          }
+        }
+        row.style.display = found || keyword === "" ? "" : "none";
+      }
+    });
+  </script>
+</body>
+</html>

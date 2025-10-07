@@ -6,23 +6,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["btnLogin"])) {
     $username = $_POST["txtUsername"] ?? '';
     $password = $_POST["txtPassword"] ?? '';
     
-    // Kiểm tra thông tin đăng nhập (admin/admin)
     if ($username === "admin" && $password === "admin") {
-        // Lưu thông tin đăng nhập vào session
-        $_SESSION['username'] = $username;
+        $_SESSION['username'] = $username;                      //Lưu thông tin đăng nhập vào session
         $_SESSION['password'] = $password; 
         $_SESSION['login_time'] = date('Y-m-d H:i:s');
         $_SESSION['ip_address'] = $_SERVER['REMOTE_ADDR'];
         
-        // Thông báo thành công
         $_SESSION['message'] = "✅ Đăng nhập thành công! Chuyển hướng đến trang quản trị...";
         $_SESSION['message_type'] = 'success';
         
-        // Chuyển hướng đến trang admin
         header('Location: /lab4/php-7.5/admin/index.php');
         exit;
     } else {
-        // Thông báo lỗi
         $error_message = "❌ Tên đăng nhập hoặc mật khẩu không đúng!";
     }
 }

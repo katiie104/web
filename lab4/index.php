@@ -1,6 +1,5 @@
 <?php
-// index.php
-// Bạn có thể thêm code PHP xử lý logic ở phần đầu file này nếu cần.
+
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -63,6 +62,13 @@
             <li><a href="#" onclick="loadContent('/lab3/7-4.html')">7.4 - Form nhập table HOSO </a></li>
             <li><a href="#" onclick="loadContent('/lab3/7-5.html')">7.5 - Form nhập đăng ký </a></li>
             <li><a href="#" onclick="loadContent('/lab3/7-6.html')">7.6 - Danh sách </a></li>
+            <li><a href="#" onclick="loadContent('/lab3/7-7.html')">7.7 - Thực đơn </a></li>
+            <li><a href="#" onclick="loadContent('/lab3/7-8.html')">7.8 - Tab </a></li>
+            <li><a href="#" onclick="loadContent('/lab3/7-9.html')">7.9 - Cây </a></li>
+            <li><a href="#" onclick="loadContent('/lab3/7-10.html')">7.10 - Máy tính </a></li>
+            <li><a href="#" onclick="loadContent('/lab3/7-11.html')">7.11 - Hoạt cảnh </a></li>
+            <li><a href="#" onclick="loadContent('/lab3/7-12.html')">7.12 - Sắp xếp và tìm kiếm trên bảng </a></li>
+            
           </ol>
         </li>
         

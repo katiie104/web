@@ -7,10 +7,9 @@ if (!isset($_SESSION['username'])) {
     exit;
 }
  
-// Thiết lập role (trong thực tế lấy từ database)
+// Thiết lập role - lẽ ra phải lấy từ database nhưng chưa làm đến bài đấy
 $user_role = $_SESSION['role'] ?? 'user';
 
-// Danh sách phân quyền (Bài 7.6)
 $allowed_pages = [
     'dashboard' => ['user', 'manager', 'admin', 'super_admin'],
     'admin' => ['admin', 'super_admin'],

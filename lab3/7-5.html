@@ -7,7 +7,6 @@
     <title>Đăng Ký</title>
     <link rel="stylesheet" href="/lab3/css/7-5.css">
 </head>
-
 <body>
 
     <div class="container">
@@ -83,8 +82,7 @@
     </div>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Chuyển sang ô tiếp theo khi nhấn Enter
+    document.addEventListener('DOMContentLoaded', function() {        // Chuyển sang ô tiếp theo  
         const inputs = Array.from(document.querySelectorAll('input[type="text"], input[type="email"], input[type="password"], input[type="date"]'));
         inputs.forEach((input, idx) => {
             input.addEventListener('keydown', function(e) {

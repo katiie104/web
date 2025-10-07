@@ -1,16 +1,14 @@
 <?php
-// admin/index.php - Trang quản trị (bảo mật)
 session_start();
 
-// Kiểm tra đăng nhập - BẢO MẬT QUAN TRỌNG
+// Kiểm tra đăng nhập
 if (!isset($_SESSION['username']) || !isset($_SESSION['password'])) {
     $_SESSION['message'] = "❌ Bạn chưa đăng nhập! Vui lòng đăng nhập để truy cập khu vực quản trị.";
     $_SESSION['message_type'] = 'error';
     header('Location: ../index.php?page=login');
     exit;
 }
-
-// Kiểm tra thông tin đăng nhập (thêm lớp bảo mật)
+// Kiểm tra xem có phải admin hay k
 if ($_SESSION['username'] !== 'admin' || $_SESSION['password'] !== 'admin') {
     session_destroy();
     header('Location: ../index.php?page=login');

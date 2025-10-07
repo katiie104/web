@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Máy Tính Điện Tử</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+    }
+    .calculator {
+      display: grid;
+      grid-template-columns: repeat(4, 70px);
+      grid-template-rows: auto repeat(5, 70px);
+      gap: 10px;
+      padding: 20px;
+      background-color: #c0c0c0;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .display {
+      grid-column: span 4;
+      height: 50px;
+      font-size: 24px;
+      text-align: right;
+      padding: 10px;
+      border: 1px solid #000;
+      background-color: #fff;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+    button {
+      font-size: 18px;
+      font-weight: bold;
+      border: 1px solid #000;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #f0f0f0;
+    }
+    button:hover {
+      background-color: #e0e0e0;
+    }
+    .operator {
+      background-color: #ffa500;
+      color: white;
+    }
+    .clear {
+      background-color: #ff6b6b;
+      color: white;
+    }
+    .zero {
+      grid-column: span 2;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" class="display" id="display" readonly value="0">
+    
+    <button class="clear">C</button>
+    <button class="clear">CE</button>
+    <button class="operator" data-value="/">/</button>
+    <button class="operator" data-value="*">×</button>
+    
+    <button data-value="7">7</button>
+    <button data-value="8">8</button>
+    <button data-value="9">9</button>
+    <button class="operator" data-value="-">-</button>
+    
+    <button data-value="4">4</button>
+    <button data-value="5">5</button>
+    <button data-value="6">6</button>
+    <button class="operator" data-value="+">+</button>
+    
+    <button data-value="1">1</button>
+    <button data-value="2">2</button>
+    <button data-value="3">3</button>
+    <button class="operator" data-value="=">=</button>
+    
+    <button class="zero" data-value="0">0</button>
+    <button data-value=".">.</button>
+    <button class="operator" data-value="%">%</button>
+    <button class="operator" data-value="+/-">+/-</button>
+  </div>
+
+  <script>
+    let display = document.getElementById('display');
+    let currentInput = '0';
+    let previousInput = null;
+    let operator = null;
+    let waitingForOperand = false;
+
+    function updateDisplay() {
+      display.value = currentInput;
+    }
+
+    function clearAll() {
+      currentInput = '0';
+      previousInput = null;
+      operator = null;
+      waitingForOperand = false;
+      updateDisplay();
+    }
+
+    function clearEntry() {
+      currentInput = '0';
+      updateDisplay();
+    }
+
+    function appendToDisplay(value) {
+      if (waitingForOperand) {
+        currentInput = '0';
+        waitingForOperand = false;
+      }
+      if (value === '.' && currentInput.includes('.')) {
+        return; // Tránh nhiều dấu chấm
+      }
+      if (currentInput === '0' && value !== '.') {
+        currentInput = value;
+      } else {
+        currentInput += value;
+      }
+      updateDisplay();
+    }
+
+    function toggleSign() {
+      if (currentInput !== '0') {
+        if (currentInput.startsWith('-')) {
+          currentInput = currentInput.substring(1);
+        } else {
+          currentInput = '-' + currentInput;
+        }
+        updateDisplay();
+      }
+    }
+
+    function operate() {
+      let result;
+      const prev = parseFloat(previousInput);
+      const current = parseFloat(currentInput);
+
+      if (isNaN(prev) || isNaN(current)) return;
+
+      switch (operator) {
+        case '+':
+          result = prev + current;
+          break;
+        case '-':
+          result = prev - current;
+          break;
+        case '*':
+          result = prev * current;
+          break;
+        case '/':
+          result = prev / current;
+          break;
+        case '%':
+          result = current / 100; // % áp dụng cho số hiện tại
+          break;
+        default:
+          return;
+      }
+
+      // Làm tròn để tránh số thập phân dài
+      if (result % 1 === 0) {
+        currentInput = result.toString();
+      } else {
+        currentInput = result.toFixed(10).replace(/\.?0+$/, '');
+      }
+
+      previousInput = null;
+      operator = null;
+      waitingForOperand = true;
+      updateDisplay();
+    }
+
+    function inputOperator(nextOperator) {
+      const inputValue = parseFloat(currentInput);
+
+      if (previousInput === null) {
+        previousInput = inputValue;
+      } else if (operator) {
+        operate();
+      }
+
+      waitingForOperand = true;
+      operator = nextOperator;
+    }
+
+    // Xử lý sự kiện cho các nút (dùng data-value để lấy giá trị chính xác)
+    document.querySelectorAll('button').forEach(button => {
+      button.addEventListener('click', function() {
+        const value = this.dataset.value || this.textContent.trim();
+        if (['+', '-', '*', '/', '%'].includes(value)) {
+          inputOperator(value);
+        } else if (value === '=') {
+          operate();
+        } else if (value === '+/-') {
+          toggleSign();
+        } else if (value === 'C') {
+          clearAll();
+        } else if (value === 'CE') {
+          clearEntry();
+        } else {
+          appendToDisplay(value);
+        }
+      });
+    });
+
+    // Khởi tạo
+    updateDisplay();
+  </script>
+</body>
+</html>

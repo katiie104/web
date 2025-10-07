@@ -22,7 +22,7 @@ if ($page == 'uploadprocess' && $_SERVER['REQUEST_METHOD'] == 'POST') {
         }
         body {
             font-family: Arial, sans-serif;
-            background: #f8f9fa;
+            background: #2e4760ff;
         }
         .header {
             background: #3c97e7ff;
@@ -69,13 +69,13 @@ if ($page == 'uploadprocess' && $_SERVER['REQUEST_METHOD'] == 'POST') {
             margin: 15px 0;
         }
         table, th, td {
-            border: 1px solid #ddd;
+            border: 1px solid #2e485eff;
             padding: 10px;
         }
         input, select, textarea {
             padding: 8px;
             margin: 5px 0;
-            border: 1px solid #ddd;
+            border: 1px solid #d57171ff;
             border-radius: 4px;
         }
         .btn {
@@ -90,7 +90,7 @@ if ($page == 'uploadprocess' && $_SERVER['REQUEST_METHOD'] == 'POST') {
             background: #2980b9;
         }
         .result {
-            background: #e8f6f3;
+            background: #439282ff;
             padding: 15px;
             border-radius: 5px;
             margin: 15px 0;
